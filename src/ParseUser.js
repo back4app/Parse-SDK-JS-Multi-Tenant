@@ -415,6 +415,9 @@ class ParseUser extends ParseObject {
     if (options.hasOwnProperty('installationId')) {
       loginOptions.installationId = options.installationId;
     }
+    if (options.hasOwnProperty('appCredentials')) {
+      loginOptions.appCredentials = options.appCredentials;
+    }
 
     const controller = CoreManager.getUserController();
     return controller.logIn(this, loginOptions);

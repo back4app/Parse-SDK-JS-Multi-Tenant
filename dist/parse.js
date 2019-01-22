@@ -14100,6 +14100,10 @@ function (_ParseObject) {
         loginOptions.installationId = options.installationId;
       }
 
+      if (options.hasOwnProperty('appCredentials')) {
+        loginOptions.appCredentials = options.appCredentials;
+      }
+
       var controller = _CoreManager.default.getUserController();
 
       return controller.logIn(this, loginOptions);
