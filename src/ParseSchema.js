@@ -431,6 +431,9 @@ const DefaultController = {
     if (options.hasOwnProperty('sessionToken')) {
       requestOptions.sessionToken = options.sessionToken;
     }
+    if (options.hasOwnProperty('appCredentials')) {
+      requestOptions.appCredentials = options.appCredentials;
+    }
     return RESTController.request(
       method,
       `schemas/${className}`,

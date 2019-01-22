@@ -13307,6 +13307,10 @@ var DefaultController = {
       requestOptions.sessionToken = options.sessionToken;
     }
 
+    if (options.hasOwnProperty('appCredentials')) {
+      requestOptions.appCredentials = options.appCredentials;
+    }
+
     return RESTController.request(method, "schemas/".concat(className), params, requestOptions);
   },
   get: function (className
