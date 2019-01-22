@@ -309,6 +309,12 @@ _CoreManager.default.setCloudController(DefaultController);
   useMasterKey?: boolean;
   sessionToken?: string;
   installationId?: string;
+  appCredentials?: {
+    SERVER_URL?: string;
+    APPLICATION_ID?: string;
+    JAVASCRIPT_KEY?: string;
+    MASTER_KEY?: string;
+  };
 };*/
 
 /*:: type AnalyticsController = {
@@ -503,9 +509,17 @@ function requireMethods(name
 module.exports = {
   get: function (key
   /*: string*/
+  , requestOptions
+  /*:: ?: RequestOptions*/
   )
   /*: any*/
   {
+    if (requestOptions && requestOptions.appCredentials) {
+      if (requestOptions.appCredentials.hasOwnProperty(key)) {
+        return requestOptions.appCredentials[key];
+      }
+    }
+
     if (config.hasOwnProperty(key)) {
       return config[key];
     }
@@ -5236,17 +5250,17 @@ var DefaultController = {
 
 
     var headers = {
-      'X-Parse-Application-ID': _CoreManager.default.get('APPLICATION_ID'),
+      'X-Parse-Application-ID': _CoreManager.default.get('APPLICATION_ID', options),
       'Content-Type': source.type || (source.file ? source.file.type : null)
     };
 
-    var jsKey = _CoreManager.default.get('JAVASCRIPT_KEY');
+    var jsKey = _CoreManager.default.get('JAVASCRIPT_KEY', options);
 
     if (jsKey) {
       headers['X-Parse-JavaScript-Key'] = jsKey;
     }
 
-    var url = _CoreManager.default.get('SERVER_URL');
+    var url = _CoreManager.default.get('SERVER_URL', options);
 
     if (url[url.length - 1] !== '/') {
       url += '/';
@@ -5943,8 +5957,10 @@ if (singleInstance) {
   _CoreManager.default.setObjectStateController(UniqueInstanceStateController);
 }
 
-function getServerUrlPath() {
-  var serverUrl = _CoreManager.default.get('SERVER_URL');
+function getServerUrlPath(options
+/*: RequestOptions*/
+) {
+  var serverUrl = _CoreManager.default.get('SERVER_URL', options);
 
   if (serverUrl[serverUrl.length - 1] !== '/') {
     serverUrl += '/';
@@ -8693,7 +8709,7 @@ var DefaultController = {
                     requests: batch.map(function (obj) {
                       return {
                         method: 'DELETE',
-                        path: getServerUrlPath() + 'classes/' + obj.className + '/' + obj._getId(),
+                        path: getServerUrlPath(options) + 'classes/' + obj.className + '/' + obj._getId(),
                         body: {}
                       };
                     })
@@ -8953,7 +8969,7 @@ var DefaultController = {
               requests: batch.map(function (obj) {
                 var params = obj._getSaveParams();
 
-                params.path = getServerUrlPath() + params.path;
+                params.path = getServerUrlPath(options) + params.path;
                 return params;
               })
             }, options);
@@ -15157,7 +15173,7 @@ var RESTController = {
   ) {
     options = options || {};
 
-    var url = _CoreManager.default.get('SERVER_URL');
+    var url = _CoreManager.default.get('SERVER_URL', options);
 
     if (url[url.length - 1] !== '/') {
       url += '/';
@@ -15177,9 +15193,9 @@ var RESTController = {
       method = 'POST';
     }
 
-    payload._ApplicationId = _CoreManager.default.get('APPLICATION_ID');
+    payload._ApplicationId = _CoreManager.default.get('APPLICATION_ID', options);
 
-    var jsKey = _CoreManager.default.get('JAVASCRIPT_KEY');
+    var jsKey = _CoreManager.default.get('JAVASCRIPT_KEY', options);
 
     if (jsKey) {
       payload._JavaScriptKey = jsKey;
@@ -15195,7 +15211,7 @@ var RESTController = {
     if (useMasterKey) {
       if (_CoreManager.default.get('MASTER_KEY')) {
         delete payload._JavaScriptKey;
-        payload._MasterKey = _CoreManager.default.get('MASTER_KEY');
+        payload._MasterKey = _CoreManager.default.get('MASTER_KEY', options);
       } else {
         throw new Error('Cannot use the Master Key, it has not been provided.');
       }

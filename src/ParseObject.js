@@ -73,8 +73,8 @@ if (singleInstance) {
   CoreManager.setObjectStateController(UniqueInstanceStateController);
 }
 
-function getServerUrlPath() {
-  let serverUrl = CoreManager.get('SERVER_URL');
+function getServerUrlPath(options: RequestOptions) {
+  let serverUrl = CoreManager.get('SERVER_URL', options);
   if (serverUrl[serverUrl.length - 1] !== '/') {
     serverUrl += '/';
   }
@@ -1987,7 +1987,7 @@ const DefaultController = {
             requests: batch.map((obj) => {
               return {
                 method: 'DELETE',
-                path: getServerUrlPath() + 'classes/' + obj.className + '/' + obj._getId(),
+                path: getServerUrlPath(options) + 'classes/' + obj.className + '/' + obj._getId(),
                 body: {}
               };
             })
@@ -2128,7 +2128,7 @@ const DefaultController = {
             return RESTController.request('POST', 'batch', {
               requests: batch.map((obj) => {
                 const params = obj._getSaveParams();
-                params.path = getServerUrlPath() + params.path;
+                params.path = getServerUrlPath(options) + params.path;
                 return params;
               })
             }, options);
