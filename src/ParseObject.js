@@ -1129,6 +1129,9 @@ class ParseObject {
     if (options.hasOwnProperty('sessionToken') && typeof options.sessionToken === 'string') {
       saveOptions.sessionToken = options.sessionToken;
     }
+    if (options.hasOwnProperty('appCredentials')) {
+      saveOptions.appCredentials = options.appCredentials;
+    }
 
     const controller = CoreManager.getObjectController();
     const unsaved = unsavedChildren(this);

@@ -7372,6 +7372,10 @@ function () {
         saveOptions.sessionToken = options.sessionToken;
       }
 
+      if (options.hasOwnProperty('appCredentials')) {
+        saveOptions.appCredentials = options.appCredentials;
+      }
+
       var controller = _CoreManager.default.getObjectController();
 
       var unsaved = (0, _unsavedChildren.default)(this);
