@@ -7411,6 +7411,10 @@ function () {
         destroyOptions.sessionToken = options.sessionToken;
       }
 
+      if (options.hasOwnProperty('appCredentials')) {
+        destroyOptions.appCredentials = options.appCredentials;
+      }
+
       if (!this.id) {
         return Promise.resolve();
       }
@@ -7821,6 +7825,10 @@ function () {
 
       if (options.hasOwnProperty('batchSize') && typeof options.batchSize === 'number') {
         destroyOptions.batchSize = options.batchSize;
+      }
+
+      if (options.hasOwnProperty('appCredentials')) {
+        destroyOptions.appCredentials = options.appCredentials;
       }
 
       return _CoreManager.default.getObjectController().destroy(list, destroyOptions);

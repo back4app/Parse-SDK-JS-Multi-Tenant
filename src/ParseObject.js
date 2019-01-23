@@ -1159,6 +1159,9 @@ class ParseObject {
     if (options.hasOwnProperty('sessionToken')) {
       destroyOptions.sessionToken = options.sessionToken;
     }
+    if (options.hasOwnProperty('appCredentials')) {
+      destroyOptions.appCredentials = options.appCredentials;
+    }
     if (!this.id) {
       return Promise.resolve();
     }
@@ -1447,6 +1450,9 @@ class ParseObject {
     }
     if (options.hasOwnProperty('batchSize') && typeof options.batchSize === 'number') {
       destroyOptions.batchSize = options.batchSize;
+    }
+    if (options.hasOwnProperty('appCredentials')) {
+      destroyOptions.appCredentials = options.appCredentials;
     }
     return CoreManager.getObjectController().destroy(
       list,
