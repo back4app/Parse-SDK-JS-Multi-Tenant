@@ -491,6 +491,9 @@ class ParseQuery {
     if (options && options.hasOwnProperty('sessionToken')) {
       firstOptions.sessionToken = options.sessionToken;
     }
+    if (options && options.hasOwnProperty('appCredentials')) {
+      firstOptions.appCredentials = options.appCredentials;
+    }
 
     return this.first(firstOptions).then((response) => {
       if (response) {
@@ -530,6 +533,9 @@ class ParseQuery {
     }
     if (options.hasOwnProperty('sessionToken')) {
       findOptions.sessionToken = options.sessionToken;
+    }
+    if (options.hasOwnProperty('appCredentials')) {
+      findOptions.appCredentials = options.appCredentials;
     }
 
     const controller = CoreManager.getQueryController();
@@ -590,6 +596,9 @@ class ParseQuery {
     if (options.hasOwnProperty('sessionToken')) {
       findOptions.sessionToken = options.sessionToken;
     }
+    if (options.hasOwnProperty('appCredentials')) {
+      findOptions.appCredentials = options.appCredentials;
+    }
 
     const controller = CoreManager.getQueryController();
 
@@ -627,6 +636,9 @@ class ParseQuery {
     if (options.hasOwnProperty('sessionToken')) {
       distinctOptions.sessionToken = options.sessionToken;
     }
+    if (options.hasOwnProperty('appCredentials')) {
+      distinctOptions.appCredentials = options.appCredentials;
+    }
     const controller = CoreManager.getQueryController();
     const params = {
       distinct: key,
@@ -661,6 +673,9 @@ class ParseQuery {
     };
     if (options.hasOwnProperty('sessionToken')) {
       aggregateOptions.sessionToken = options.sessionToken;
+    }
+    if (options.hasOwnProperty('appCredentials')) {
+      aggregateOptions.appCredentials = options.appCredentials;
     }
     const controller = CoreManager.getQueryController();
 
@@ -704,6 +719,9 @@ class ParseQuery {
     }
     if (options.hasOwnProperty('sessionToken')) {
       findOptions.sessionToken = options.sessionToken;
+    }
+    if (options.hasOwnProperty('appCredentials')) {
+      findOptions.appCredentials = options.appCredentials;
     }
 
     const controller = CoreManager.getQueryController();
@@ -811,6 +829,9 @@ class ParseQuery {
     }
     if (options.hasOwnProperty('sessionToken')) {
       findOptions.sessionToken = options.sessionToken;
+    }
+    if (options.hasOwnProperty('appCredentials')) {
+      findOptions.appCredentials = options.appCredentials;
     }
 
     let finished = false;

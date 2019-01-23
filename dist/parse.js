@@ -10760,6 +10760,10 @@ function () {
         firstOptions.sessionToken = options.sessionToken;
       }
 
+      if (options && options.hasOwnProperty('appCredentials')) {
+        firstOptions.appCredentials = options.appCredentials;
+      }
+
       return this.first(firstOptions).then(function (response) {
         if (response) {
           return response;
@@ -10804,6 +10808,10 @@ function () {
 
       if (options.hasOwnProperty('sessionToken')) {
         findOptions.sessionToken = options.sessionToken;
+      }
+
+      if (options.hasOwnProperty('appCredentials')) {
+        findOptions.appCredentials = options.appCredentials;
       }
 
       var controller = _CoreManager.default.getQueryController();
@@ -10870,6 +10878,10 @@ function () {
         findOptions.sessionToken = options.sessionToken;
       }
 
+      if (options.hasOwnProperty('appCredentials')) {
+        findOptions.appCredentials = options.appCredentials;
+      }
+
       var controller = _CoreManager.default.getQueryController();
 
       var params = this.toJSON();
@@ -10910,6 +10922,10 @@ function () {
         distinctOptions.sessionToken = options.sessionToken;
       }
 
+      if (options.hasOwnProperty('appCredentials')) {
+        distinctOptions.appCredentials = options.appCredentials;
+      }
+
       var controller = _CoreManager.default.getQueryController();
 
       var params = {
@@ -10948,6 +10964,10 @@ function () {
 
       if (options.hasOwnProperty('sessionToken')) {
         aggregateOptions.sessionToken = options.sessionToken;
+      }
+
+      if (options.hasOwnProperty('appCredentials')) {
+        aggregateOptions.appCredentials = options.appCredentials;
       }
 
       var controller = _CoreManager.default.getQueryController();
@@ -10997,6 +11017,10 @@ function () {
 
       if (options.hasOwnProperty('sessionToken')) {
         findOptions.sessionToken = options.sessionToken;
+      }
+
+      if (options.hasOwnProperty('appCredentials')) {
+        findOptions.appCredentials = options.appCredentials;
       }
 
       var controller = _CoreManager.default.getQueryController();
@@ -11114,6 +11138,10 @@ function () {
 
       if (options.hasOwnProperty('sessionToken')) {
         findOptions.sessionToken = options.sessionToken;
+      }
+
+      if (options.hasOwnProperty('appCredentials')) {
+        findOptions.appCredentials = options.appCredentials;
       }
 
       var finished = false;
