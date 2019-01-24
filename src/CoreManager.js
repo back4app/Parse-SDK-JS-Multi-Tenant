@@ -23,6 +23,12 @@ type RequestOptions = {
   useMasterKey?: boolean;
   sessionToken?: string;
   installationId?: string;
+  appCredentials?: {
+    SERVER_URL?: string;
+    APPLICATION_ID?: string;
+    JAVASCRIPT_KEY?: string;
+    MASTER_KEY?: string;
+  };
 };
 type AnalyticsController = {
   track: (name: string, dimensions: { [key: string]: string }) => Promise;
@@ -183,7 +189,12 @@ function requireMethods(name: string, methods: Array<string>, controller: any) {
 }
 
 module.exports = {
-  get: function(key: string): any {
+  get: function(key: string, requestOptions?: RequestOptions): any {
+    if (requestOptions && requestOptions.appCredentials) {
+      if (requestOptions.appCredentials.hasOwnProperty(key)) {
+        return requestOptions.appCredentials[key];
+      }
+    }
     if (config.hasOwnProperty(key)) {
       return config[key];
     }

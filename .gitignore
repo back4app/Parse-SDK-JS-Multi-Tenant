@@ -1,6 +1,4 @@
 coverage
-dist
-lib
 logs
 node_modules
 test_output
@@ -13,4 +11,3 @@ test_logs
 out/
 docs/
 .eslintcache
-

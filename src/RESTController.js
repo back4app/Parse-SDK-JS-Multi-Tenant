@@ -19,6 +19,12 @@ export type RequestOptions = {
   batchSize?: number;
   include?: any;
   progress?: any;
+  appCredentials?: {
+    SERVER_URL?: string;
+    APPLICATION_ID?: string;
+    JAVASCRIPT_KEY?: string;
+    MASTER_KEY?: string;
+  };
 };
 
 export type FullOptions = {
@@ -28,6 +34,12 @@ export type FullOptions = {
   sessionToken?: string;
   installationId?: string;
   progress?: any;
+  appCredentials?: {
+    SERVER_URL?: string;
+    APPLICATION_ID?: string;
+    JAVASCRIPT_KEY?: string;
+    MASTER_KEY?: string;
+  };
 };
 
 let XHR = null;
@@ -181,7 +193,7 @@ const RESTController = {
 
   request(method: string, path: string, data: mixed, options?: RequestOptions) {
     options = options || {};
-    let url = CoreManager.get('SERVER_URL');
+    let url = CoreManager.get('SERVER_URL', options);
     if (url[url.length - 1] !== '/') {
       url += '/';
     }
@@ -199,8 +211,8 @@ const RESTController = {
       method = 'POST';
     }
 
-    payload._ApplicationId = CoreManager.get('APPLICATION_ID');
-    const jsKey = CoreManager.get('JAVASCRIPT_KEY');
+    payload._ApplicationId = CoreManager.get('APPLICATION_ID', options);
+    const jsKey = CoreManager.get('JAVASCRIPT_KEY', options);
     if (jsKey) {
       payload._JavaScriptKey = jsKey;
     }
@@ -211,9 +223,9 @@ const RESTController = {
       useMasterKey = CoreManager.get('USE_MASTER_KEY');
     }
     if (useMasterKey) {
-      if (CoreManager.get('MASTER_KEY')) {
+      if (CoreManager.get('MASTER_KEY', options)) {
         delete payload._JavaScriptKey;
-        payload._MasterKey = CoreManager.get('MASTER_KEY');
+        payload._MasterKey = CoreManager.get('MASTER_KEY', options);
       } else {
         throw new Error('Cannot use the Master Key, it has not been provided.');
       }

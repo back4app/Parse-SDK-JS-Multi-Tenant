@@ -73,8 +73,8 @@ if (singleInstance) {
   CoreManager.setObjectStateController(UniqueInstanceStateController);
 }
 
-function getServerUrlPath() {
-  let serverUrl = CoreManager.get('SERVER_URL');
+function getServerUrlPath(options: RequestOptions) {
+  let serverUrl = CoreManager.get('SERVER_URL', options);
   if (serverUrl[serverUrl.length - 1] !== '/') {
     serverUrl += '/';
   }
@@ -1129,6 +1129,9 @@ class ParseObject {
     if (options.hasOwnProperty('sessionToken') && typeof options.sessionToken === 'string') {
       saveOptions.sessionToken = options.sessionToken;
     }
+    if (options.hasOwnProperty('appCredentials')) {
+      saveOptions.appCredentials = options.appCredentials;
+    }
 
     const controller = CoreManager.getObjectController();
     const unsaved = unsavedChildren(this);
@@ -1158,6 +1161,9 @@ class ParseObject {
     }
     if (options.hasOwnProperty('sessionToken')) {
       destroyOptions.sessionToken = options.sessionToken;
+    }
+    if (options.hasOwnProperty('appCredentials')) {
+      destroyOptions.appCredentials = options.appCredentials;
     }
     if (!this.id) {
       return Promise.resolve();
@@ -1447,6 +1453,9 @@ class ParseObject {
     }
     if (options.hasOwnProperty('batchSize') && typeof options.batchSize === 'number') {
       destroyOptions.batchSize = options.batchSize;
+    }
+    if (options.hasOwnProperty('appCredentials')) {
+      destroyOptions.appCredentials = options.appCredentials;
     }
     return CoreManager.getObjectController().destroy(
       list,
@@ -1987,7 +1996,7 @@ const DefaultController = {
             requests: batch.map((obj) => {
               return {
                 method: 'DELETE',
-                path: getServerUrlPath() + 'classes/' + obj.className + '/' + obj._getId(),
+                path: getServerUrlPath(options) + 'classes/' + obj.className + '/' + obj._getId(),
                 body: {}
               };
             })
@@ -2128,7 +2137,7 @@ const DefaultController = {
             return RESTController.request('POST', 'batch', {
               requests: batch.map((obj) => {
                 const params = obj._getSaveParams();
-                params.path = getServerUrlPath() + params.path;
+                params.path = getServerUrlPath(options) + params.path;
                 return params;
               })
             }, options);

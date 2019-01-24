@@ -248,14 +248,14 @@ const DefaultController = {
     }
     // To directly upload a File, we use a REST-style AJAX request
     const headers = {
-      'X-Parse-Application-ID': CoreManager.get('APPLICATION_ID'),
+      'X-Parse-Application-ID': CoreManager.get('APPLICATION_ID', options),
       'Content-Type': source.type || (source.file ? source.file.type : null)
     };
-    const jsKey = CoreManager.get('JAVASCRIPT_KEY');
+    const jsKey = CoreManager.get('JAVASCRIPT_KEY', options);
     if (jsKey) {
       headers['X-Parse-JavaScript-Key'] = jsKey;
     }
-    let url = CoreManager.get('SERVER_URL');
+    let url = CoreManager.get('SERVER_URL', options);
     if (url[url.length - 1] !== '/') {
       url += '/';
     }
