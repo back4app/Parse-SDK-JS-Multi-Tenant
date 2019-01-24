@@ -223,7 +223,7 @@ const RESTController = {
       useMasterKey = CoreManager.get('USE_MASTER_KEY');
     }
     if (useMasterKey) {
-      if (CoreManager.get('MASTER_KEY')) {
+      if (CoreManager.get('MASTER_KEY', options)) {
         delete payload._JavaScriptKey;
         payload._MasterKey = CoreManager.get('MASTER_KEY', options);
       } else {

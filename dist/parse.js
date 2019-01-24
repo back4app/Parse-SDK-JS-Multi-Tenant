@@ -15257,7 +15257,7 @@ var RESTController = {
     }
 
     if (useMasterKey) {
-      if (_CoreManager.default.get('MASTER_KEY')) {
+      if (_CoreManager.default.get('MASTER_KEY', options)) {
         delete payload._JavaScriptKey;
         payload._MasterKey = _CoreManager.default.get('MASTER_KEY', options);
       } else {
